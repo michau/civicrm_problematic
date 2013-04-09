@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * TODO
+ */
+function civicrm_problematic_civicrm_summary( $contactID, &$content, &$contentPlacement ) {
+
+  $problem_field_id = 1;
+  $problem_description_field_id = 2;
+
+  $problem_custom = 'custom_' . $problem_field_id;
+  $description_custom = 'custom_' . $problem_description_field_id;
+
+  $problem = civicrm_api("Contact", "getsingle", array( 'version' => 3, 'contact_id' => $contactID, 'return.' . $problem_custom => 1, 'return.' . $description_custom => 1 ));
+  if( $problem[$problem_custom] == true ) {
+    dpm( $problem );
+
+    $contentPlacement = CRM_Utils_Hook::SUMMARY_ABOVE;
+    $content = '<table style="border: 1px solid red; background: pink; font-size: 1.5em; font-weight: bold;"><tbody><tr><td>There is a communication problem with this contact!</td></tr><tr><td style="font-size: 0.8em; font-weight: normal;">' . $problem[$description_custom] . '</td></tr></tbody></table>';
+  }
+}

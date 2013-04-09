@@ -1,0 +1,6 @@
+name = CiviCRM Problematic Client module
+description = Provides ability to mark contact as problematic and describe why
+core = 7.x
+version = 7.x-1.0
+dependencies[] = civicrm
+package = CiviCRM
